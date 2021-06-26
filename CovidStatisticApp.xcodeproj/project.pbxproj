@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		CBCA27352687AE9A00A3BDD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA27342687AE9A00A3BDD7 /* AppDelegate.swift */; };
 		CBCA27372687AE9A00A3BDD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA27362687AE9A00A3BDD7 /* SceneDelegate.swift */; };
-		CBCA27392687AE9A00A3BDD7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA27382687AE9A00A3BDD7 /* ViewController.swift */; };
+		CBCA27392687AE9A00A3BDD7 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA27382687AE9A00A3BDD7 /* MainCollectionViewController.swift */; };
 		CBCA273C2687AE9A00A3BDD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA273A2687AE9A00A3BDD7 /* Main.storyboard */; };
 		CBCA273F2687AE9A00A3BDD7 /* CovidStatisticApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CBCA273D2687AE9A00A3BDD7 /* CovidStatisticApp.xcdatamodeld */; };
 		CBCA27412687AE9C00A3BDD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBCA27402687AE9C00A3BDD7 /* Assets.xcassets */; };
 		CBCA27442687AE9C00A3BDD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA27422687AE9C00A3BDD7 /* LaunchScreen.storyboard */; };
+		CBCA27502687B22F00A3BDD7 /* CovidStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA274F2687B22F00A3BDD7 /* CovidStatistic.swift */; };
+		CBCA27562687BE8900A3BDD7 /* CountryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA27552687BE8900A3BDD7 /* CountryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CBCA27312687AE9A00A3BDD7 /* CovidStatisticApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidStatisticApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA27342687AE9A00A3BDD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCA27362687AE9A00A3BDD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CBCA27382687AE9A00A3BDD7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CBCA27382687AE9A00A3BDD7 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
 		CBCA273B2687AE9A00A3BDD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CBCA273E2687AE9A00A3BDD7 /* CovidStatisticApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CovidStatisticApp.xcdatamodel; sourceTree = "<group>"; };
 		CBCA27402687AE9C00A3BDD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBCA27432687AE9C00A3BDD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBCA27452687AE9C00A3BDD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBCA274F2687B22F00A3BDD7 /* CovidStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidStatistic.swift; sourceTree = "<group>"; };
+		CBCA27552687BE8900A3BDD7 /* CountryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +64,14 @@
 			children = (
 				CBCA27342687AE9A00A3BDD7 /* AppDelegate.swift */,
 				CBCA27362687AE9A00A3BDD7 /* SceneDelegate.swift */,
-				CBCA27382687AE9A00A3BDD7 /* ViewController.swift */,
+				CBCA27382687AE9A00A3BDD7 /* MainCollectionViewController.swift */,
 				CBCA273A2687AE9A00A3BDD7 /* Main.storyboard */,
 				CBCA27402687AE9C00A3BDD7 /* Assets.xcassets */,
 				CBCA27422687AE9C00A3BDD7 /* LaunchScreen.storyboard */,
 				CBCA27452687AE9C00A3BDD7 /* Info.plist */,
 				CBCA273D2687AE9A00A3BDD7 /* CovidStatisticApp.xcdatamodeld */,
+				CBCA274F2687B22F00A3BDD7 /* CovidStatistic.swift */,
+				CBCA27552687BE8900A3BDD7 /* CountryCollectionViewCell.swift */,
 			);
 			path = CovidStatisticApp;
 			sourceTree = "<group>";
@@ -141,8 +147,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBCA273F2687AE9A00A3BDD7 /* CovidStatisticApp.xcdatamodeld in Sources */,
-				CBCA27392687AE9A00A3BDD7 /* ViewController.swift in Sources */,
+				CBCA27562687BE8900A3BDD7 /* CountryCollectionViewCell.swift in Sources */,
+				CBCA27392687AE9A00A3BDD7 /* MainCollectionViewController.swift in Sources */,
 				CBCA27352687AE9A00A3BDD7 /* AppDelegate.swift in Sources */,
+				CBCA27502687B22F00A3BDD7 /* CovidStatistic.swift in Sources */,
 				CBCA27372687AE9A00A3BDD7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CovidStatisticApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,6 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CovidStatisticApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

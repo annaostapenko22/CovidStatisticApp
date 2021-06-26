@@ -1,24 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fsS-3d-onQ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Covid World Statistic-->
+        <scene sceneID="yx4-7g-8Gj">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="E0Q-h9-3J6" customClass="MainCollectionViewController" customModule="CovidStatisticApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iPJ-nl-VXn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y6E-gL-kZL">
+                                <rect key="frame" x="0.0" y="183" width="414" height="713"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H03-wR-1rb">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="uz5-4x-GEJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="713"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="countryCell" id="2gy-9b-lw8" customClass="CountryCollectionViewCell" customModule="CovidStatisticApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qXh-H7-PrF">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-sH-Hxv">
+                                                    <rect key="frame" x="43" y="53.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gwi-sH-Hxv" firstAttribute="centerX" secondItem="qXh-H7-PrF" secondAttribute="centerX" id="OhG-Rf-Hzi"/>
+                                                <constraint firstItem="gwi-sH-Hxv" firstAttribute="centerY" secondItem="qXh-H7-PrF" secondAttribute="centerY" id="gzy-4J-7rP"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.79148619379999996" green="0.92776088469999995" blue="0.93496295100000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="countryNameLabel" destination="gwi-sH-Hxv" id="ZGW-Zc-MYm"/>
+                                            <segue destination="LBl-zy-i9N" kind="presentation" id="pfm-SQ-RYj"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Hv-bs-Rh8">
+                                <rect key="frame" x="20" y="116" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JkA-2r-pAT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="JkA-2r-pAT" firstAttribute="trailing" secondItem="6Hv-bs-Rh8" secondAttribute="trailing" constant="20" id="0AM-W4-u1P"/>
+                            <constraint firstItem="y6E-gL-kZL" firstAttribute="leading" secondItem="JkA-2r-pAT" secondAttribute="leading" id="6vq-6R-rxW"/>
+                            <constraint firstAttribute="bottom" secondItem="y6E-gL-kZL" secondAttribute="bottom" id="CSp-aT-kWA"/>
+                            <constraint firstItem="y6E-gL-kZL" firstAttribute="top" secondItem="6Hv-bs-Rh8" secondAttribute="bottom" constant="33" id="SWE-LL-ore"/>
+                            <constraint firstItem="y6E-gL-kZL" firstAttribute="trailing" secondItem="JkA-2r-pAT" secondAttribute="trailing" id="e4M-po-5o4"/>
+                            <constraint firstItem="6Hv-bs-Rh8" firstAttribute="top" secondItem="JkA-2r-pAT" secondAttribute="top" constant="28" id="ham-qv-YOi"/>
+                            <constraint firstItem="6Hv-bs-Rh8" firstAttribute="leading" secondItem="JkA-2r-pAT" secondAttribute="leading" constant="20" id="ipS-D8-kD9"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Covid World Statistic" id="7os-eX-xj8"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="uz5-4x-GEJ" id="ErU-YH-S4u"/>
+                        <outlet property="collectionView" destination="y6E-gL-kZL" id="Arl-PD-0M2"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ft8-JR-xDd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="3360.8695652173915" y="-17.410714285714285"/>
+        </scene>
+        <!--Country statistic-->
+        <scene sceneID="NU5-11-vsV">
+            <objects>
+                <viewController id="CuR-Tg-aw5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Hf-5W-T1E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ugZ-Vo-1D2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Country statistic" id="GiE-NU-Lbn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zg2-lR-eAq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5200" y="-9.375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4sX-oM-PiC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fsS-3d-onQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SG1-r1-4vt">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="E0Q-h9-3J6" kind="relationship" relationship="rootViewController" id="6nx-nk-spG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cd-mE-8D1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2450.7246376811595" y="-17.410714285714285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OSm-wK-UVx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LBl-zy-i9N" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yca-Pf-pz8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CuR-Tg-aw5" kind="relationship" relationship="rootViewController" id="Bu6-xz-CfO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hgT-od-6Ih" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4289.855072463768" y="-9.375"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
