@@ -7,24 +7,28 @@
 
 import UIKit
 
-class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var covidData: CovidStatistic = CovidStatistic(response: ["Germany"])
+    
+    @IBOutlet weak var searchCountryTextField: UITextField!
+    
+    var covidData: CovidCountries = CovidCountries(response: [""])
+    
+    var country: String = ""
+    
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.searchCountryTextField.delegate = self
         activityIndicator.startAnimating()
         
-        getDataButtonPressed()
+        getCountriesData()
     }
     
-    
-    
-    func getDataButtonPressed() {
+    func getCountriesData() {
         let headers = [
             "x-rapidapi-key": "975ff1a773msh6dc6b5e99f5c3ccp1025f4jsnf831f3c4e791",
             "x-rapidapi-host": "covid-193.p.rapidapi.com"
@@ -41,23 +45,18 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
             if (error != nil) {
                 print(error ?? "")
             } else {
-                let httpResponse = response as? HTTPURLResponse
-                
-                //                print(httpResponse ?? "")
                 guard let data = data else { return }
                 do {
-                    self.covidData = try JSONDecoder().decode(CovidStatistic.self, from: data)
-                    print("covidData \(self.covidData)")
+                    self.covidData = try JSONDecoder().decode(CovidCountries.self, from: data)
+                    //                    print("covidData \(self.covidData)")
                     
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                         self.activityIndicator.stopAnimating()
-                        //                self.successAlert()
                     }
                 } catch let error {
-                    print("error====>\(error)")
+                    print(error)
                     DispatchQueue.main.async {
-                        //                self.failedAlert()
                     }
                 }
                 
@@ -68,39 +67,39 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
         
     }
     
-    
-    
-    @IBAction func onGetDataPressed(_ sender: Any) {
-        getDataButtonPressed()
+    override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navigationVC = segue.destination as? UINavigationController else { return }
+        guard let covidCountryVC = navigationVC.topViewController as? CountryStatisticViewController else { return }
+        covidCountryVC.country = "\(sender as! String)"
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //        CGSize(width: UIScreen.main.bounds.width - 48, height: 100)
-    //    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width - 48, height: 100)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        covidData.response.count
-    }
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
 }
 
 extension MainCollectionViewController {
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
         if covidData.response.count > 1 {
             let country = covidData.response[indexPath.row]
-            print("country \(country), row\(indexPath)")
             cell.countryNameLabel.text = country
+            cell.layer.cornerRadius = 15
+            cell.backgroundColor = self.view.hexStringToUIColor(hex: "#6A7EFC")
         }
-        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        _ = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
+        if covidData.response.count > 1 {
+            let covidCountry = covidData.response[indexPath.row]
+            performSegue(withIdentifier: "covidCountrySegue", sender: covidCountry.lowercased())
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: UIScreen.main.bounds.width - 48, height: 70)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        covidData.response.count > 1 ? covidData.response.count : 0
+    }
+
 }
