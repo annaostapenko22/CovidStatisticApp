@@ -26,13 +26,12 @@ class CountryStatisticViewController: UIViewController {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
-        
         countryName.text = country.self
         getStatisticData()
-       
+        
     }
     
-    func getStatisticData(){
+    private func getStatisticData(){
         let headers = [
             "x-rapidapi-key": "975ff1a773msh6dc6b5e99f5c3ccp1025f4jsnf831f3c4e791",
             "x-rapidapi-host": "covid-193.p.rapidapi.com"
@@ -49,12 +48,9 @@ class CountryStatisticViewController: UIViewController {
             if (error != nil) {
                 print(error ?? "")
             } else {
-                //                let httpResponse = response as? HTTPURLResponse
-                //                print(httpResponse ?? "")
                 guard let data = data else { return }
                 do {
                     self.covidStatistic = try JSONDecoder().decode(CovidStatisticData.self, from: data)
-                    print("self.covidStatistic \(self.covidStatistic)")
                     
                     DispatchQueue.main.async {
                         self.generateDisplayData()

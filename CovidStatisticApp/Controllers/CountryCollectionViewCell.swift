@@ -7,8 +7,6 @@
 
 import UIKit
 
-class CountryCollectionViewCell: UICollectionViewCell {
-    
+class CountryCollectionViewCell: UICollectionViewCell {    
     @IBOutlet weak var countryNameLabel: UILabel!
-    
 }

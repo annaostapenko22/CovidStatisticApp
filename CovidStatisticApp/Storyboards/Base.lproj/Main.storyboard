@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -19,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y6E-gL-kZL">
-                                <rect key="frame" x="0.0" y="183" width="414" height="713"/>
+                                <rect key="frame" x="0.0" y="185" width="414" height="711"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H03-wR-1rb">
                                     <size key="itemSize" width="128" height="128"/>
@@ -28,7 +29,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="uz5-4x-GEJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="713"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="711"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <cells>
@@ -59,30 +60,33 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Hv-bs-Rh8">
-                                <rect key="frame" x="20" y="116" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <searchBar contentMode="redraw" placeholder="Search country" translatesAutoresizingMaskIntoConstraints="NO" id="mF6-eM-iaU">
+                                <rect key="frame" x="0.0" y="100" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JkA-2r-pAT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="JkA-2r-pAT" firstAttribute="trailing" secondItem="6Hv-bs-Rh8" secondAttribute="trailing" constant="20" id="0AM-W4-u1P"/>
                             <constraint firstItem="y6E-gL-kZL" firstAttribute="leading" secondItem="JkA-2r-pAT" secondAttribute="leading" id="6vq-6R-rxW"/>
                             <constraint firstAttribute="bottom" secondItem="y6E-gL-kZL" secondAttribute="bottom" id="CSp-aT-kWA"/>
-                            <constraint firstItem="y6E-gL-kZL" firstAttribute="top" secondItem="6Hv-bs-Rh8" secondAttribute="bottom" constant="33" id="SWE-LL-ore"/>
+                            <constraint firstItem="y6E-gL-kZL" firstAttribute="top" secondItem="mF6-eM-iaU" secondAttribute="bottom" constant="29" id="ImR-WT-hVq"/>
+                            <constraint firstItem="mF6-eM-iaU" firstAttribute="trailing" secondItem="JkA-2r-pAT" secondAttribute="trailing" id="YF8-5A-RML"/>
                             <constraint firstItem="y6E-gL-kZL" firstAttribute="trailing" secondItem="JkA-2r-pAT" secondAttribute="trailing" id="e4M-po-5o4"/>
-                            <constraint firstItem="6Hv-bs-Rh8" firstAttribute="top" secondItem="JkA-2r-pAT" secondAttribute="top" constant="28" id="ham-qv-YOi"/>
-                            <constraint firstItem="6Hv-bs-Rh8" firstAttribute="leading" secondItem="JkA-2r-pAT" secondAttribute="leading" constant="20" id="ipS-D8-kD9"/>
+                            <constraint firstItem="mF6-eM-iaU" firstAttribute="leading" secondItem="JkA-2r-pAT" secondAttribute="leading" id="egg-Ra-igs"/>
+                            <constraint firstItem="mF6-eM-iaU" firstAttribute="top" secondItem="JkA-2r-pAT" secondAttribute="top" constant="12" id="fWi-tU-TJZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Covid World Statistic" id="7os-eX-xj8"/>
+                    <navigationItem key="navigationItem" title="Covid World Statistic" id="7os-eX-xj8">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="iEi-TA-ZeR">
+                            <color key="tintColor" red="0.12575885940000001" green="0.0070461736160000003" blue="0.40484927399999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="uz5-4x-GEJ" id="ErU-YH-S4u"/>
                         <outlet property="collectionView" destination="y6E-gL-kZL" id="Arl-PD-0M2"/>
-                        <outlet property="searchCountryTextField" destination="6Hv-bs-Rh8" id="YxY-w8-Orb"/>
-                        <segue destination="LBl-zy-i9N" kind="presentation" identifier="covidCountrySegue" id="f6m-zf-4am"/>
+                        <outlet property="searchBar" destination="mF6-eM-iaU" id="bvw-yO-0r0"/>
+                        <segue destination="LBl-zy-i9N" kind="show" identifier="covidCountrySegue" id="f6m-zf-4am"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ft8-JR-xDd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -94,20 +98,20 @@
             <objects>
                 <viewController id="CuR-Tg-aw5" customClass="CountryStatisticViewController" customModule="CovidStatisticApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Hf-5W-T1E">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cv3-Q2-j9h">
-                                <rect key="frame" x="175.5" y="119" width="63" height="29"/>
+                                <rect key="frame" x="175.5" y="151" width="63" height="29"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gfu-X7-bBV">
-                                <rect key="frame" x="197" y="411" width="20" height="20"/>
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="LJa-kr-voX">
-                                <rect key="frame" x="156" y="198" width="102" height="95"/>
+                                <rect key="frame" x="156" y="230" width="102" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Population:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7t-Wy-Nv4">
                                         <rect key="frame" x="0.0" y="0.0" width="102" height="23.5"/>
@@ -124,13 +128,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cases" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4q-a3-R8h">
-                                <rect key="frame" x="174.5" y="343" width="65.5" height="26.5"/>
+                                <rect key="frame" x="174.5" y="375" width="65.5" height="26.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bIG-JD-Eya">
-                                <rect key="frame" x="160" y="432" width="94.5" height="110.5"/>
+                                <rect key="frame" x="160" y="464" width="94.5" height="110.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOX-bp-yxg">
                                         <rect key="frame" x="0.0" y="0.0" width="94.5" height="23.5"/>
@@ -169,7 +173,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Country statistic" id="GiE-NU-Lbn">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="sCa-oL-8Ns"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="sCa-oL-8Ns">
+                            <color key="tintColor" systemColor="systemBlueColor"/>
+                            <connections>
+                                <segue destination="x7q-O7-nld" kind="unwind" unwindAction="unwindSegueToMainScreenWithSegue:" id="6dc-td-N8g"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="gfu-X7-bBV" id="9aq-zm-kwA"/>
@@ -182,6 +191,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zg2-lR-eAq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="x7q-O7-nld" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5198.5507246376819" y="-9.375"/>
         </scene>
@@ -203,14 +213,19 @@
             </objects>
             <point key="canvasLocation" x="2450.7246376811595" y="-17.410714285714285"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Covid Statistic Country View Controller-->
         <scene sceneID="OSm-wK-UVx">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LBl-zy-i9N" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LBl-zy-i9N" customClass="CovidStatisticCountryViewController" customModule="CovidStatisticApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="s4T-Xw-0Vw"/>
+                    <navigationItem key="navigationItem" id="s4T-Xw-0Vw">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="xdC-6N-VA1">
+                            <imageReference key="image" image="multiply" catalog="system" symbolScale="medium"/>
+                            <color key="tintColor" red="0.12575885940000001" green="0.0070461736160000003" blue="0.40484927399999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.left" catalog="system" id="yca-Pf-pz8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -225,8 +240,12 @@
     </scenes>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

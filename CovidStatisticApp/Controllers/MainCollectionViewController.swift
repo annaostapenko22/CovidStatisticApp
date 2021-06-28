@@ -7,13 +7,14 @@
 
 import UIKit
 
-class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var searchCountryTextField: UITextField!
     
     var covidData: CovidCountries = CovidCountries(response: [""])
+    var filteredData: [String] = []
     
     var country: String = ""
     
@@ -22,13 +23,14 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        self.searchCountryTextField.delegate = self
+        searchBar.delegate = self
         activityIndicator.startAnimating()
-        
+        activityIndicator.hidesWhenStopped = true
+        filteredData = covidData.response
         getCountriesData()
     }
     
-    func getCountriesData() {
+    private func getCountriesData() {
         let headers = [
             "x-rapidapi-key": "975ff1a773msh6dc6b5e99f5c3ccp1025f4jsnf831f3c4e791",
             "x-rapidapi-host": "covid-193.p.rapidapi.com"
@@ -48,16 +50,13 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 guard let data = data else { return }
                 do {
                     self.covidData = try JSONDecoder().decode(CovidCountries.self, from: data)
-                    //                    print("covidData \(self.covidData)")
-                    
+                    self.filteredData = self.covidData.response
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                         self.activityIndicator.stopAnimating()
                     }
                 } catch let error {
                     print(error)
-                    DispatchQueue.main.async {
-                    }
                 }
                 
             }
@@ -72,13 +71,18 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
         guard let covidCountryVC = navigationVC.topViewController as? CountryStatisticViewController else { return }
         covidCountryVC.country = "\(sender as! String)"
     }
+    
+    @IBAction  func unwindSegueToMainScreen(segue: UIStoryboardSegue) {
+       }
 }
+
+// MARK: - CollectionView settings
 
 extension MainCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
-        if covidData.response.count > 1 {
-            let country = covidData.response[indexPath.row]
+        if filteredData.count > 0 {
+            let country = filteredData[indexPath.row]
             cell.countryNameLabel.text = country
             cell.layer.cornerRadius = 15
             cell.backgroundColor = self.view.hexStringToUIColor(hex: "#6A7EFC")
@@ -88,8 +92,8 @@ extension MainCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         _ = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
-        if covidData.response.count > 1 {
-            let covidCountry = covidData.response[indexPath.row]
+        if filteredData.count > 0 {
+            let covidCountry = filteredData[indexPath.row]
             performSegue(withIdentifier: "covidCountrySegue", sender: covidCountry.lowercased())
         }
     }
@@ -99,7 +103,29 @@ extension MainCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        covidData.response.count > 1 ? covidData.response.count : 0
+        filteredData.count > 0 ? filteredData.count : 0
     }
+}
 
+// MARK: - UISearchBar settings
+
+extension MainCollectionViewController {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        filteredData = covidData.response
+        collectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? covidData.response : covidData.response.filter { (item: String) -> Bool in
+            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        collectionView.reloadData()
+    }
 }
