@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -18,6 +19,8 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
     
     var country: String = ""
     
+    static let reuseCellID = "countryCell"
+    
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,43 +30,17 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         filteredData = covidData.response
-        getCountriesData()
+        
+        fetchData(from: URLS.countries.rawValue)
     }
     
-    private func getCountriesData() {
-        let headers = [
-            "x-rapidapi-key": "975ff1a773msh6dc6b5e99f5c3ccp1025f4jsnf831f3c4e791",
-            "x-rapidapi-host": "covid-193.p.rapidapi.com"
-        ]
-        
-        let request = NSMutableURLRequest(url: NSURL(string: "https://covid-193.p.rapidapi.com/countries")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if (error != nil) {
-                print(error ?? "")
-            } else {
-                guard let data = data else { return }
-                do {
-                    self.covidData = try JSONDecoder().decode(CovidCountries.self, from: data)
-                    self.filteredData = self.covidData.response
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.activityIndicator.stopAnimating()
-                    }
-                } catch let error {
-                    print(error)
-                }
-                
-            }
-        })
-        
-        dataTask.resume()
-        
+    private func fetchData(from url: String?) {
+        NetworkManager.shared.fetchCountries(from: URLS.countries.rawValue) {  covidData in
+            self.covidData = covidData
+            self.filteredData = covidData.response
+            self.collectionView.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -73,14 +50,14 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     @IBAction  func unwindSegueToMainScreen(segue: UIStoryboardSegue) {
-       }
+    }
 }
 
 // MARK: - CollectionView settings
 
 extension MainCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewController.reuseCellID, for: indexPath) as! CountryCollectionViewCell
         if filteredData.count > 0 {
             let country = filteredData[indexPath.row]
             cell.countryNameLabel.text = country
@@ -91,7 +68,7 @@ extension MainCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        _ = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as! CountryCollectionViewCell
+        _ = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewController.reuseCellID, for: indexPath) as! CountryCollectionViewCell
         if filteredData.count > 0 {
             let covidCountry = filteredData[indexPath.row]
             performSegue(withIdentifier: "covidCountrySegue", sender: covidCountry.lowercased())

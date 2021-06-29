@@ -27,46 +27,18 @@ class CountryStatisticViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         countryName.text = country.self
-        getStatisticData()
+        
+        fetchData(from: URLS.covidCountryStatistic.rawValue, with: country)
         
     }
     
-    private func getStatisticData(){
-        let headers = [
-            "x-rapidapi-key": "975ff1a773msh6dc6b5e99f5c3ccp1025f4jsnf831f3c4e791",
-            "x-rapidapi-host": "covid-193.p.rapidapi.com"
-        ]
-        
-        let request = NSMutableURLRequest(url: NSURL(string: "https://covid-193.p.rapidapi.com/statistics?country=\(country)")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if (error != nil) {
-                print(error ?? "")
-            } else {
-                guard let data = data else { return }
-                do {
-                    self.covidStatistic = try JSONDecoder().decode(CovidStatisticData.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        self.generateDisplayData()
-                        self.view.reloadInputViews()
-                        self.activityIndicator.stopAnimating()
-                    }
-                } catch let error {
-                    print(error)
-                    DispatchQueue.main.async {
-                    }
-                }
-                
-            }
-        })
-        
-        dataTask.resume()
+    private func fetchData(from url: String?, with countryName: String) {
+        NetworkManager.shared.fetchCountryStatistic(from: URLS.covidCountryStatistic.rawValue, with: country) {  covidStatistic in
+            self.covidStatistic = covidStatistic
+            self.generateDisplayData()
+            self.view.reloadInputViews()
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     private func generateDisplayData() {
