@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 class MainCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
@@ -31,17 +31,30 @@ class MainCollectionViewController: UIViewController, UICollectionViewDelegate, 
         activityIndicator.hidesWhenStopped = true
         filteredData = covidData.response
         
-        fetchData(from: URLS.countries.rawValue)
+        //  fetchData(from: URLS.countries.rawValue)
+        fetchCountries(from: URLS.countries.rawValue)
     }
     
-    private func fetchData(from url: String?) {
-        NetworkManager.shared.fetchCountries(from: URLS.countries.rawValue) {  covidData in
+    // MARK: - Receiving data with Alamofire framework
+    
+    func fetchCountries(from url: String?){
+        NetworkManager.shared.fetchCountries(from: URLS.countries.rawValue) { covidData in
             self.covidData = covidData
             self.filteredData = covidData.response
             self.collectionView.reloadData()
             self.activityIndicator.stopAnimating()
         }
     }
+    // MARK: - Receiving data with usual URLrequest
+    
+    //    private func fetchData(from url: String?) {
+    //        NetworkManager.shared.fetchCountries(from: URLS.countries.rawValue) {  covidData in
+    //            self.covidData = covidData
+    //            self.filteredData = covidData.response
+    //            self.collectionView.reloadData()
+    //            self.activityIndicator.stopAnimating()
+    //        }
+    //    }
     
     override  func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let navigationVC = segue.destination as? UINavigationController else { return }
